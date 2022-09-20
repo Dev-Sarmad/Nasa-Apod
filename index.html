@@ -1,35 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NASA API Pictures</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="https://s2.googleusercontent.com/s2/favicons?domain=www.nasa.gov">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://s2.googleusercontent.com/s2/favicons?domain=www.nasa.gov"
+    />
     <!-- ZTM Favicon -->
     <!-- <link rel="icon" type="image/png" href="favicon.png"> -->
-</head>
-<body>
+  </head>
+  <body>
     <!-- loader -->
     <div class="loader hidden">
-        <img src="rocket.svg" alt="loading rocket">
+      <img src="rocket.svg" alt="loading rocket" />
     </div>
     <!-- container -->
     <div class="container">
-        <!-- navigation -->
-        <div class="navigation-container">
-            <span class="background"></span>
-            <!-- result nav -->
-            <span class="navigation-items" id="resultsNav">
-                <h3 class="clickable">Favorites</h3>
-                <h3>&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;</h3>
-                <h3 class="clickable">Load More</h3>
-            </span>
-            <!-- favourites Nav -->
-            <span class="navigation-items" id="favoritesNav"></span>
+      <!-- navigation -->
+      <div class="navigation-container">
+        <span class="background"></span>
+        <!-- result nav -->
+        <span class="navigation-items" id="resultsNav">
+          <h3 class="clickable">Favorites</h3>
+          <h3>&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;</h3>
+          <h3 class="clickable">Load More</h3>
+        </span>
+        <!-- favourites Nav -->
+        <span class="navigation-items" id="favoritesNav"></span>
+      </div>
+      <!-- image container -->
+      <div class="images-container">
+        <div class="card">
+          <a href="" target="_blank" title="view full image">
+            <img
+              src="https://apod.nasa.gov/apod/image/2209/NGC3576_Willocks_3300_Starless.jpg"
+              alt="image of the day"
+              class="card-img-top"
+            />
+          </a>
+          <div class="card-body">
+            <h5 class="card-tit">title of image</h5>
+            <p class="clickable">Add to Favorites</p>
+            <p class="card-text">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Perferendis ipsum provident nobis consequuntur aut, dolorum,
+              accusamus et error adipisci, eius id quaerat illo quas sequi
+              laborum soluta? Odit, suscipit eum! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem nesciunt dolores eaque, a facilis soluta nobis placeat cumque numquam maiores similique perferendis! Minus necessitatibus distinctio expedita dolorem nisi quod laboriosam.
+            </p>
+            <small class="text-muted">
+              <strong>20-9-2022</strong>
+              <span>copyright &copy;</span>
+            </small>
+          </div>
         </div>
+      </div>
     </div>
+
+    <!-- save confirmation -->
+    <div class="save-confirmed hidden">ADDED!</div>
     <!-- Script -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
