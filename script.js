@@ -1,3 +1,4 @@
+// yf0Vz5JbfGSClrJa1IjqXyYblcxMUND8EDmUJcHQ
 const resultsNav = document.getElementById("resultsNav");
 const favoritesNav = document.getElementById("favoritesNav");
 const imagesContainer = document.querySelector(".images-container");
@@ -15,8 +16,20 @@ let resultsArray = [];
 
 let favorites = {};
 
-function updateDOM() {
-  resultsArray.forEach((result) => {
+function showContent(page ){
+  if(page=== 'results'){
+    resultsNav.classList.remove('hidden');
+    favoritesNav.classList.add('hidden');
+  }else{
+    resultsNav.classList.add('hidden');
+    favoritesNav.classList.remove('hidden');
+  }
+  loader.classList.add('hidden');
+}
+
+function createDOMNODE(page) {
+  const currentArray = page === 'results' ? resultsArray : Object.values(favorites);
+  currentArray.forEach((result) => {
     // card - container
     const card = document.createElement("div");
     card.classList.add("card");
@@ -41,8 +54,13 @@ function updateDOM() {
     // save text
     const saveText = document.createElement("p");
     saveText.classList.add("clickable");
-    saveText.textContent = "add to favourite";
-    saveText.setAttribute("onclick", `saveFavorite('${result.url}')`);
+    if(page==='results'){
+      saveText.textContent = "add to favourite";
+    saveText.setAttribute("onclick", `saveFavourite('${result.url}')`);
+    }else{
+      saveText.textContent = "Remove favourite";
+    saveText.setAttribute("onclick", `removeFavourite('${result.url}')`);
+    }
     // card Text
     const cardText = document.createElement("p");
     cardText.textContent = result.explanation;
@@ -66,34 +84,54 @@ function updateDOM() {
   });
 }
 
+function updateDOM(page) {
+  // get favorites from the local storage/ server
+  if (localStorage.getItem('Nasafavorites')) {
+    favorites = JSON.parse(localStorage.getItem('Nasafavorites'));
+  }
+  imagesContainer.textContent = '';
+  createDOMNODE(page);
+  showContent(page);
+}
+
 // GET 10 IMAGES FROM NASA API
 
 async function getNasaPictures() {
+  loader.classList.remove('hidden');
   try {
     const response = await fetch(apiUrl);
     resultsArray = await response.json();
-    console.log(resultsArray);
-    updateDOM();
+    updateDOM('results');
   } catch (error) {
     // found error while getting data
   }
 }
 
 // Add to favourite
-function saveFavorite(itemUrl) {
-  // loop through each array to select favorite
+function saveFavourite(itemUrl) {
+  // loops through the items to select the favourite
   resultsArray.forEach((item) => {
     if (item.url.includes(itemUrl) && !favorites[itemUrl]) {
       favorites[itemUrl] = item;
-      // show save confirmation for 2 seconds
       saveConfirmed.hidden = false;
-      setTimeout(()=>{
+      setTimeout(() => {
         saveConfirmed.hidden = true;
       }, 2000);
-    //   saving the date into the local storage 
-    localStorage.setItem('nasaFavorites', JSON.stringify(favorites[itemUrl]));
+      // saving to localStorage
+      localStorage.setItem('Nasafavorites', JSON.stringify(favorites));
     }
   });
+}
+
+// remove from favorites
+
+function removeFavourite(itemUrl){
+  if(favorites[itemUrl]){
+    delete favorites[itemUrl];
+    // saving to localStorage
+    localStorage.setItem('Nasafavorites', JSON.stringify(favorites));
+    updateDOM('favorite');
+  }
 }
 
 // on load
